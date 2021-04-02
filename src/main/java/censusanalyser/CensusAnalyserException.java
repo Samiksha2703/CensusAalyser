@@ -5,7 +5,8 @@ public class CensusAnalyserException extends Exception {
     enum ExceptionType {
         CENSUS_FILE_PROBLEM,
         WRONG_FILE_TYPE,
-        WRONG_DELI_METER_DATA_FILE
+        WRONG_DELI_METER_DATA_FILE,
+        WRONG_HEADER
     }
 
     ExceptionType type;
