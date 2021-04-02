@@ -1,5 +1,6 @@
 package censusanalyser;
 
+import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -21,7 +22,6 @@ public class CensusAnalyser {
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
             CsvToBean<IndiaCensusCSV> csvToBean = csvToBeanBuilder.build();
             Iterator<IndiaCensusCSV> censusCSVIterator = csvToBean.iterator();
-
             int namOfEateries = 0;
             while (censusCSVIterator.hasNext()) {
                 namOfEateries++;
@@ -34,5 +34,18 @@ public class CensusAnalyser {
         }
     }
 
-
+    public void checkDelimeter(String csvFilePath) throws CensusAnalyserException {
+        try {
+            BufferedReader br = Files.newBufferedReader(Paths.get(csvFilePath));
+            while (true) {
+                String line = br.readLine();
+                String[] Linecolumns = line.split(",");
+                if (Linecolumns.length < 4) {
+                    throw new CensusAnalyserException("Wrong Delimeter Type", CensusAnalyserException.ExceptionType.WRONG_DELI_METER_DATA_FILE);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
